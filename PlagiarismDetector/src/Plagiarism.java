@@ -51,20 +51,35 @@ public class Plagiarism{
 		Ss s = new Ss();
 		int size = 0;
 		
-		String path1 = "/Users/Yuyu/Downloads/PlagarismDetector.java";
-		String path2 = "/Users/Yuyu/Downloads/Complex-1.java";
+		String path1 = "/Users/Yuyu/Documents/workspace/Plagiarism/src/Plagiarism/Test1.java";
+		String path2 = "/Users/Yuyu/Documents/workspace/Plagiarism/src/Plagiarism/Test2.java";
 		Plagiarism p = new Plagiarism();
 		String s1 = p.readFile(path1);
+		int length = s1.length();
 		String s2 = p.readFile(path2);
-		List<String> l = s.getSameStr(s1, s2);
-		for(String str : l){
-			System.out.println(str.length());
-			System.out.println("plagiarism ratio"+(double)str.length()*100/s1.length()+"%");
+		java.util.List<String> l = s.getSameStr(s1, s2);
+		double res = 0;
+		String same = "";
+		
+		while(l.size()!=0){
+			System.out.println("----------"+l.size());
+			String str = l.get(0);
+			if(str.length()<10)
+				break;
+			System.out.println("**********"+str.length());
+			same = str;
+			res += (double)str.length()*100/length;
+			s1 = s1.replace(str, "");
+			s2 = s2.replace(str, "");
+			l = s.getSameStr(s1, s2);
+			System.out.println(s1);
+			System.out.println(s2);
 		}
 		
+		System.out.println("plagiarism ratio"+res+"%");
+
 	}
 }
-
 
 
 
